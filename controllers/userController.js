@@ -162,48 +162,7 @@ exports.getProfile = async (req, res) => {
     res.status(500).json({ message: '服务器错误' });
   }
 };
-// 获取用户所有信息
 
-// exports.get_userinfo = async (req, res) => {
-//   try {
-//     // 获取分页参数，默认 page=1，limit=10
-//     const { page, size } = req.body;
-//     // 计算偏移量
-//     const offset = (page - 1) * size;
-
-//     // 获取数据 + 总数
-//     const { count, rows } = await User.findAndCountAll({
-//       attributes: ['id', 'username', 'phone', 'created_at'],
-//       size,
-//       offset,
-//       order: [['created_at', 'DESC']] // 可选：按注册时间倒序
-//     });
-//     const users = await User.findAll({
-//       attributes: ['id', 'username', 'phone', 'created_at']
-//     });
-//     // 转换 created_at 为时间戳（毫秒）
-//     const data = users.map(user => ({
-//       id: user.id,
-//       username: user.username,
-//       phone: user.phone,
-//       created_at: `${new Date(user.created_at).getTime()}`
-//     }));
-//     res.status(200).json({
-//       msg: 'success',
-//       data: data,
-//       total: count,        // 总条数
-//       page,                // 当前页
-//       size,               // 每页数量
-//       totalPages: Math.ceil(count / size) // 总页数
-//     });
-//   } catch (err) {
-//     console.error('查询用户失败:', err);
-//     res.status(500).json({
-//       status: 'error',
-//       message: '查询用户失败'
-//     });
-//   }
-// }
 exports.get_userinfo = async (req, res) => {
   try {
     const { page = 1, size = 10 } = req.body;

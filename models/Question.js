@@ -6,6 +6,7 @@ const Question = sequelize.define('Question', {
   grade_id: DataTypes.INTEGER,
   subject_id: DataTypes.INTEGER,
   unit_id: DataTypes.INTEGER,
+  semester: DataTypes.STRING, // ✅ 确保这行存在
   type: DataTypes.TINYINT, // 1:选择 2:填空 3:应用
   content: DataTypes.TEXT,
   options: DataTypes.JSON,

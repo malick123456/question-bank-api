@@ -29,15 +29,16 @@ CREATE TABLE IF NOT EXISTS units (
 
 CREATE TABLE IF NOT EXISTS questions (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  grade_id INT NOT NULL,
-  subject_id INT NOT NULL,
+  grade_id INT NOT NULL, -- 年级 1-6
+  subject_id INT NOT NULL, -- 学科 Chinese语文  math 数学  en 英文
   unit_id INT DEFAULT NULL,
+  semester TINYINT NOT NULL DEFAULT 1 COMMENT '1: 上学期, 2: 下学期',
   type TINYINT NOT NULL COMMENT '1:选择题, 2:填空题, 3:应用题',
-  content TEXT NOT NULL,
+  content TEXT NOT NULL, -- 题干
   options JSON DEFAULT NULL,     -- 仅选择题使用，存储 ABCD
-  answer TEXT NOT NULL,
+  answer TEXT NOT NULL, -- 答案
   explanation TEXT DEFAULT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- 创建时间
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 插入年级数据

@@ -1,18 +1,19 @@
+// middlewares/auth.js
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  // Bearer token格式
-  const token = authHeader && authHeader.split(' ')[1];
+module.exports = (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1]; // Bearer token
 
-  if (!token) return res.status(401).json({ message: '未提供令牌' });
+  if (!token) {
+    return res.status(401).json({ message: '未提供 token，拒绝访问' });
+  }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ message: '令牌无效或已过期' });
-    req.user = user; // 将解码后的用户信息挂载到请求对象
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // 把用户信息挂载在 req 上
     next();
-  });
-}
-
-module.exports = authenticateToken;
+  } catch (err) {
+    return res.status(401).json({ message: '无效的 token' });
+  }
+};

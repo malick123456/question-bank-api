@@ -17,9 +17,9 @@ sequelize.authenticate()
   .catch((err) => console.error('❌ 数据库连接失败:', err));
 
 // 路由
-const questionRoutes = require('./routes/questionRoutes');
+const questionRoutes = require('./routes/questionRoutes.js');
 app.use('/api/questions', questionRoutes);
-const userRoutes = require('./routes/userRoutes');
+const userRoutes = require('./routes/userRoutes.js');
 app.use('/api/users', userRoutes);
 
 
